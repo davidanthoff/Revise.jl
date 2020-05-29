@@ -165,7 +165,7 @@ function methods_by_execution!(@nospecialize(recurse), methodinfo, docexprs, mod
     lwr = Meta.lower(mod, ex)
     # @show ex
     isa(lwr, Expr) || return nothing, nothing
-    frame = prepare_thunk(mod, copy(lwr), true)
+    frame = prepare_thunk(mod, copy(lwr), true; eval=mode!==:sigs)
     frame === nothing && return nothing, nothing
     mode===:eval || LoweredCodeUtils.rename_framemethods!(recurse, frame)
     # Determine whether we need interpreted mode
